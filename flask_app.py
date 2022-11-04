@@ -3,57 +3,61 @@ import sqlite3
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def home():
-    return render_template('signup.html')
+    return render_template("signup.html")
 
-@app.route('/signup', methods=['POST'])
+@app.route("/home", methods=['POST'])
 def signup():
-    con = sqlite3.connect('login.db')
-    cur = con.cursor()
-    cur.execute(" INSERT INTO user (username, password) VALUES (?,?)",
-                    (request.form['un'],request.form['pw']))
-    return 'Hello ' + request.form['un']
-# request.args.get gets the argument 'un' from the html
-# request.form is if you use methods near /signup to hide the data
+	con = sqlite3.connect('login.db')
+	cur = con.cursor()
+	cur.execute("""INSERT INTO Users (Username, Password) VALUES (?,?)""",
+		(request.form['un'], request.form['pw']))
+	con.commit()
+	return 'welcome '+ request.form['un']
 
-@app.route('/login', methods=['POST'])
+@app.route("/login")
 def login():
-    con = sqlite3.connect('login.db')
-    cur = con.cursor()
-    cur.execute(" INSERT INTO user (username, password) VALUES (?,?)",
-                    (request.form['un'],request.form['pw']))
-    return 'Hello ' + request.form['un']
-    
-@app.route('/create')
-def create():
-    con = sqlite3.connect('login.db')
-    #cursor is an object that provides facility to write SQL. dont pay attention doesnt make sense
-    cur = con.cursor()
-    cur.execute(""" CREATE TABLE user(
-                    username VARCHAR(20) NOT NULL PRIMARY KEY,
-                    password VARCHAR(20) NOT NULL)
-                """)
-                #TRIPLE QUOTES ALLOWS TO WRITE SQL IN FEW LINES
-    return 'table created'
+	return render_template("login.html")
 
+@app.route('/verify', methods=['POST'])
+def verify():
+	con = sqlite3.connect('login.db')
+	cur = con.cursor()
+	cur.execute("SELECT * FROM Users WHERE Username=? AND Password=?",
+		(request.form['un'],request.form['pw']))
+	match = len(cur.fetchall())
+	if match == 0:
+		return "Wrong username and password"
+	else:
+		return "Welcome " + request.form['un']
 
+@app.route("/db")
+def db():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    try:
+        cur.execute("""
+        CREATE TABLE Users(
+        Username VARCHAR(20) NOT NULL PRIMARY KEY,
+	Password VARCHAR(20) NOT NULL)
+        """)
+    except sqlite3.OperationalError as e:
+        return str(e)
+    return "table created"
 @app.route('/insert')
 def insert():
-    con = sqlite3.connect('login.db')
-    #cursor is an object that provides facility to write SQL. dont pay attention doesnt make sense
-    cur = con.cursor()
-    cur.execute(""" INSERT INTO user (username, password)
-                    VALUES ('anfy', '3456')
-                """)
-    con.commit()
-    return 'insert'
-
+	con = sqlite3.connect('login.db')
+	cur = con.cursor()
+	cur.execute(	"""	INSERT INTO Users (Username, Password)
+					VALUES ("anfy", "7295")
+			""")
+	con.commit()
+	return 'INSERT'
 @app.route('/select')
 def select():
-    con = sqlite3.connect('login.db')
-    cur = con.cursor()
-    cur.execute(" SELECT * FROM user ")
-    rows = cur.fetchall()
-    #fetchall means send the command "SELECT *..." to the database and return the result
-    return str(rows)
+	con = sqlite3.connect('login.db')
+	cur = con.cursor()
+	cur.execute("SELECT * FROM Users")
+	rows = cur.fetchall()
+	return str(rows)
