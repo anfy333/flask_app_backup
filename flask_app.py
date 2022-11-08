@@ -9,10 +9,14 @@ def home():
 
 @app.route("/home", methods=['POST'])
 def signup():
+	password = request.form['pw']
+	en = password.encode()
+	h = hashlib.sha256(en)
+	password = h.hexdigest()
 	con = sqlite3.connect('login.db')
 	cur = con.cursor()
 	cur.execute("""INSERT INTO Users (Username, Password) VALUES (?,?)""",
-		(request.form['un'], request.form['pw']))
+		(request.form['un'], password))
 	con.commit()
 	return 'welcome '+ request.form['un']
 
