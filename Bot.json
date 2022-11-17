@@ -1,0 +1,12 @@
+[
+    {
+        "sentiment": "fear",
+        "feeling": "anxiety",
+        "URL" : "https://www.youtube.com/watch?v=O-6f5wQXSu8"
+    },
+    {
+        "sentiment": "greeting",
+        "user_input": ["hi", "hello", "hey", "good morning"],
+        "response": "hello there :)"
+    }
+]
