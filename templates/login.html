@@ -1,7 +1,22 @@
-<form method="post" action="/verify">
-    name:
-    <input type="text" name="un">
-    password:
-    <input type="text" name="pw">
-    <input type="submit">
-  </form>
+<html>
+  <head>
+    <link rel="stylesheet" href="static/login.css">
+  </head>
+  <body>
+    <div class = "Login">
+      <h1>Login</h1>
+
+      <form method="post" action="/verify">
+        <div class = "text">
+          <input type="text" name="un" placeholder="Username">
+        </div>
+
+        <div class = "text">
+          <input type="password" name="pw" placeholder="Password">
+        </div>
+
+        <input type="submit">
+      </form>
+
+  </body>
+</html>
