@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="static/home.css">
+        <script src="https://kit.fontawesome.com/afdbd95c6d.js" crossorigin="anonymous"></script>
+        <style>
+            body{background-color: white; font-family: helvetica;}
+            .heading{position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);
+            width: 400px; background-color: white; border-radius: 10px; border: 1px solid lightgrey;
+            border-top: 0px;}
+            .type-msg{width: 100%;background-color: rgb(119,213,230); font-size: 20px; line-height:50px; text-align: center;
+            font-weight: 700; border-radius: 0px 0px 10px 10px}
+            .type-msg .input{ width: calc(100%-53px)}
+            .heading .chatbot{background-color: rgb(119,213,230); font-size: 20px; line-height:50px; font-weight: 700;
+            text-align: center; border-radius: 10px 10px 0 0}
+            .heading .form{padding: 15px 15px;height: 450px; overflow-y: auto;}
+            .heading .form .bot-inbox{width: 100%; display: flex; align-items: baseline}
+            .heading .form .bot-inbox .icon{padding: 10px 11px 10px 11px; text-align: center;
+            border-radius: 50%; font-size: 18px; background: rgb(119,213,230)}
+            .heading .form .bot-inbox .msg-bot{ max-width: 53%; margin-left:10px; background: rgb(119,213,230);
+            padding: 8px 10px; border-radius: 10px; font-size: 16px }
+            .heading .form .user-inbox{justify-content: flex-end;width: 100%; display: flex; align-items: baseline}
+            .heading .form .user-inbox .msg-user{max-width: 53%; background: lightgrey;
+            padding: 8px 10px; border-radius: 10px; font-size: 16px }
+
+        </style>
+    </head>
+    <body>
+
+        <div class="heading">
+            <div class="chatbot"> Chatbot</div>
+            <div class="form">
+                <div class="bot-inbox">
+                    <div class="icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="msg-bot" id="msg">
+                    </div>
+                </div>
+                <div class="user-inbox">
+                    <div class="msg-user" id="msg-u">Hi there, it's very nice to meet you
+                    </div>
+                </div>
+            </div>
+        <div class="type-msg">
+            <div class="input">
+                <input type="text" placeholder="Type something here...">
+                <button class="chat-button">Send</button>
+            </div>
+        </div>
+        </div>
+
+    </body>
+    <script>
+
+        //class Chatbox{
+           // consruct(){
+                //this.arg = {sendButton: document.querySelector(selector:'.chat-button')}
+           // }
+      //  }
+        //this.messages = []
+       // display(){
+           // const {type-msg, chat-button} = this.arg;
+           // sendButton.addEventListener(type:'click', listener() => this.onSendButton(type-msg))
+      //}
+
+       //onSendButton(type-msg){
+           // var texField = type-msg.querySelector('input');
+           // let text1 = textField.value
+            //if (text1 ===""){
+                //return;
+           // }
+            //let msg1 = { name : "User", message: text1}
+            //this.messages.push(msg1);
+
+            //this.updateChatText(type-msg)
+            //TextField.value = ''
+        //}
+       // updateChatText(type-msg){
+            //var html = '';
+            //this.messages.slice().reverse().forEach(function(item, index:number)){
+                //html += '<div class ="user-inbox"> <div class="msg-user" id="msg-u">' + item.message
+           // }
+       // }
+        //const chatmessage = type-msg.querySelector('.user-inbox');
+        //chatmessage.innerHTML = html;
+
+        var test = {{ name | tojson}};
+        var msg = "Hi " +test+"!"
+        document.getElementById("msg").innerHTML = msg;
+    </script>
+</html>
