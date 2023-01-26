@@ -8,5 +8,10 @@
         "sentiment": "greeting",
         "user_input": ["hi", "hello", "hey", "good morning"],
         "response": "hello there :)"
+    },
+    {
+        "sentiment": "anger",
+        "feeling": "anger",
+        "URL" : "https://youtu.be/wkse4PPxkk4"
     }
 ]
