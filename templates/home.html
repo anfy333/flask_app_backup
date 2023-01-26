@@ -1,10 +1,11 @@
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="static/home.css">
         <script src="https://kit.fontawesome.com/afdbd95c6d.js" crossorigin="anonymous"></script>
         <style>
             body{background-color: white; font-family: helvetica;}
-            .heading{position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);
+            .heading{position: absolute;top: 55%; left: 50%;transform: translate(-50%, -50%);
             width: 400px; background-color: white; border-radius: 10px; border: 1px solid lightgrey;
             border-top: 0px;}
             .type-msg{width: 100%;background-color: rgb(119,213,230); font-size: 20px; line-height:50px; text-align: center;
@@ -12,80 +13,85 @@
             .type-msg .input{ width: calc(100%-53px)}
             .heading .chatbot{background-color: rgb(119,213,230); font-size: 20px; line-height:50px; font-weight: 700;
             text-align: center; border-radius: 10px 10px 0 0}
-            .heading .form{padding: 15px 15px;height: 450px; overflow-y: auto;}
+            .heading .form{padding: 15px 15px;height: 400px; overflow-y: auto;}
             .heading .form .bot-inbox{width: 100%; display: flex; align-items: baseline}
             .heading .form .bot-inbox .icon{padding: 10px 11px 10px 11px; text-align: center;
             border-radius: 50%; font-size: 18px; background: rgb(119,213,230)}
-            .heading .form .bot-inbox .msg-bot{ max-width: 53%; margin-left:10px; background: rgb(119,213,230);
-            padding: 8px 10px; border-radius: 10px; font-size: 16px }
-            .heading .form .user-inbox{justify-content: flex-end;width: 100%; display: flex; align-items: baseline}
-            .heading .form .user-inbox .msg-user{max-width: 53%; background: lightgrey;
-            padding: 8px 10px; border-radius: 10px; font-size: 16px }
-
+            .heading .form .msg-bot{ width: fit-content; margin-left:10px; background: rgb(119,213,230);
+            padding: 10px; border-radius: 10px; font-size: 16px }
+            .heading .form .msg-user{width: fit-content; margin-left: auto; background-color: lightgrey;
+            padding: 10px; border-radius: 10px; font-size: 16px}
+            ul {list-style-type: none; padding: 0; overflow: hidden;background-color:#77d5e6;}
+            li {float: left;}
+            li a {display: inline; display: block; padding: 8px; color: black; font-family: helvetica; font-weight: 600; text-align: center; padding: 15px 17px; text-decoration: none;}
+            li .link:hover { background-color: #bcdfe6;}
         </style>
     </head>
     <body>
+        <form action="" method ="post">
+            <ul>
+                <li><a>Home</a></li>
+                <li><a href="https://anfy333-code50-99250133-vjq7jgwv77p3prvq-5000.preview.app.github.dev/account" class="link">Account</a></li>
+                <li><a href="https://anfy333-code50-99250133-vjq7jgwv77p3prvq-5000.preview.app.github.dev/login" class="link">Logout</a></li>
+            </ul>
+        </form>
 
         <div class="heading">
             <div class="chatbot"> Chatbot</div>
-            <div class="form">
-                <div class="bot-inbox">
-                    <div class="icon">
+            <div class="form" id="form">
+                <div class="bot-inbox", id="bot-inbox">
+                    <!--<div class="icon">
                         <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="msg-bot" id="msg">
-                    </div>
-                </div>
-                <div class="user-inbox">
-                    <div class="msg-user" id="msg-u">Hi there, it's very nice to meet you
+                    </div>-->
+                    <div class="msg-bot" id="msg-bot">
                     </div>
                 </div>
+                <!--<div class="msg-user" id="msg-user">test
+                </div>-->
             </div>
-        <div class="type-msg">
-            <div class="input">
-                <input type="text" placeholder="Type something here...">
-                <button class="chat-button">Send</button>
+
+        <form action="/form" method = "get">
+            <div class="type-msg">
+                <input id = "input" type="text" placeholder="Type something here...">
+                <button type="button" onclick="append()"> Send</button>
             </div>
-        </div>
+        </form>
+
         </div>
 
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script>
 
-        //class Chatbox{
-           // consruct(){
-                //this.arg = {sendButton: document.querySelector(selector:'.chat-button')}
-           // }
-      //  }
-        //this.messages = []
-       // display(){
-           // const {type-msg, chat-button} = this.arg;
-           // sendButton.addEventListener(type:'click', listener() => this.onSendButton(type-msg))
-      //}
+        // using Jinja to  serialise a python class object into JSON string object
+        var user = {{ name | tojson}};
+        var msg = "Hi " +user+"!"
+        // sending the variable "msg" with the username to a div
+        document.getElementById("msg-bot").innerHTML = msg;
 
-       //onSendButton(type-msg){
-           // var texField = type-msg.querySelector('input');
-           // let text1 = textField.value
-            //if (text1 ===""){
-                //return;
-           // }
-            //let msg1 = { name : "User", message: text1}
-            //this.messages.push(msg1);
+        function append(){
+            const test = document.getElementById('msg-user');
+            const div = document.createElement('div');
+            var input = document.getElementById('input').value;
+            div.setAttribute('class','msg-user');
+            div.innerHTML = input;
+            document.getElementById("form").appendChild(div);
 
-            //this.updateChatText(type-msg)
-            //TextField.value = ''
-        //}
-       // updateChatText(type-msg){
-            //var html = '';
-            //this.messages.slice().reverse().forEach(function(item, index:number)){
-                //html += '<div class ="user-inbox"> <div class="msg-user" id="msg-u">' + item.message
-           // }
-       // }
-        //const chatmessage = type-msg.querySelector('.user-inbox');
-        //chatmessage.innerHTML = html;
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                output.textContent = this.responseText.replace(/["]/g,'');
+                console.log(this.responseText)
+            }
+            xhttp.open("GET", "/chat?msg="+input, true)
+            xhttp.send()
 
-        var test = {{ name | tojson}};
-        var msg = "Hi " +test+"!"
-        document.getElementById("msg").innerHTML = msg;
+            const output = document.createElement('div');
+            output.setAttribute('class','msg-bot');
+            document.getElementById("form").appendChild(output);
+            }
+
+
+
+
     </script>
 </html>
